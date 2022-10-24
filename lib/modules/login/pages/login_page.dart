@@ -1,13 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:raro_pokedex/core/consts/app_images.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  _handleLogin() {}
+  _handleLogin() {
+    Modular.to.pushReplacementNamed('/home/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   SizedBox(height: 24.h),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _handleLogin,
                     child: const Text('Login'),
                   )
                 ],

@@ -2,7 +2,7 @@
 class HttpResponse<E> {
   final E data;
   final String message;
-  final int statusCode;
+  final int? statusCode;
 
   HttpResponse({
     required this.data,

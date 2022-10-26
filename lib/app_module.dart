@@ -1,12 +1,17 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:raro_pokedex/core/http/client_http.dart';
+import 'package:raro_pokedex/core/http/dio_client_http.dart';
 import 'package:raro_pokedex/modules/home/home_module.dart';
 import 'package:raro_pokedex/modules/login/login_module.dart';
-import 'package:raro_pokedex/modules/login/pages/login_page.dart';
 import 'package:raro_pokedex/modules/app/splash_page.dart';
 
 class AppModule extends Module {
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind<ClientHttp>(
+          (i) => DioClienteHttp(),
+        )
+      ];
 
   @override
   List<ModularRoute> get routes => [

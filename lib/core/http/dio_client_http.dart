@@ -7,7 +7,7 @@ class DioClienteHttp implements ClientHttp {
   Future<HttpResponse> get(
       {required String url, Map<String, dynamic>? params}) async {
     var dio = Dio();
-    var response =
+    final response =
         await dio.get(url, options: Options(responseType: ResponseType.json));
     HttpResponse httpResponse = HttpResponse(
         message: "", statusCode: response.statusCode ?? 0, data: response.data);

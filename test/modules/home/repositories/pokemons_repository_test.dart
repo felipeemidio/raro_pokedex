@@ -1,35 +1,29 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:raro_pokedex/core/entites/http_response.dart';
 import 'package:raro_pokedex/core/http/client_http.dart';
+import 'package:raro_pokedex/modules/home/errors/home_errors.dart';
 import 'package:raro_pokedex/modules/home/repositories/pokemons_repository.dart';
 
-class FakeClientHttp implements ClientHttp {
-  @override
-  Future<HttpResponse> get(
-      {required String url, Map<String, dynamic>? params}) async {
-    return HttpResponse(
-      data: {
-        "results": [
-          {"name": "Pikachu", "url": "https://pokeapi.co/api/v2/pokemon/1/"}
-        ]
-      },
-      message: "",
-      statusCode: 200,
-    );
-  }
-}
-
-class FakeClientHttp2 implements ClientHttp {
-  @override
-  Future<HttpResponse> get(
-      {required String url, Map<String, dynamic>? params}) async {
-    throw Exception();
-  }
-}
+class MockClientHttp extends Mock implements ClientHttp {}
 
 void main() {
   test('Pokemons list is not Empty', () async {
-    final ClientHttp clientHttp = FakeClientHttp();
+    final ClientHttp clientHttp = MockClientHttp();
+    when(() => clientHttp.get(url: any(named: "url")))
+        .thenAnswer((realInvocation) async => HttpResponse(
+              data: {
+                "results": [
+                  {
+                    "name": "Pikachu",
+                    "url": "https://pokeapi.co/api/v2/pokemon/1/"
+                  }
+                ]
+              },
+              message: "",
+              statusCode: 200,
+            ));
     final PokemonRepository pokemonRepository = PokemonRepository(clientHttp);
 
     final pokemons = await pokemonRepository.getPokemons();
@@ -38,11 +32,12 @@ void main() {
   });
 
   test('Pokemons list fails', () async {
-    final ClientHttp clientHttp = FakeClientHttp2();
+    final ClientHttp clientHttp = MockClientHttp();
     final PokemonRepository pokemonRepository = PokemonRepository(clientHttp);
 
-    final pokemons = await pokemonRepository.getPokemons();
+    when(() => clientHttp.get(url: any(named: "url"))).thenThrow(Exception());
 
-    expect(pokemons.isEmpty, false);
+    expect(() async => await pokemonRepository.getPokemons(),
+        throwsA(isA<PokemonListException>()));
   });
 }

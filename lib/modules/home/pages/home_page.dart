@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:raro_pokedex/core/entites/pokemon.dart';
-import 'package:raro_pokedex/modules/cubit/pokemon_list_cubit.dart';
-import 'package:raro_pokedex/modules/cubit/pokemon_list_cubit_state.dart';
+import 'package:raro_pokedex/modules/home/widgets/pokemons_list_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,14 +12,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _navigationBarIndex = 0;
   late PageController pageViewController;
-  late PokemonsListCubit _pokemonsListCubit;
 
   @override
   void initState() {
     pageViewController = PageController();
-    _pokemonsListCubit = Modular.get<PokemonsListCubit>();
-    _pokemonsListCubit.getPokemons();
-
     super.initState();
   }
 
@@ -42,30 +35,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: PageView(
         controller: pageViewController,
-        children: [
-          const Center(child: Text('Favoritos')),
-          BlocConsumer<PokemonsListCubit, PokemonsListCubitState>(
-            listener: (context, state) {
-              if (state.status == PokemonsListCubitStatus.error) {
-                final snackBar = SnackBar(
-                  content: Text(state.error!.message),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            },
-            bloc: _pokemonsListCubit,
-            builder: (context, state) {
-              return ListView(
-                  children: state.pokemons
-                      .map((pokemon) => ListTile(
-                            title: Text(
-                              pokemon.name,
-                            ),
-                            leading: Text(pokemon.id),
-                          ))
-                      .toList());
-            },
-          )
+        children: const [
+          Center(child: Text('Favoritos')),
+          PokemonListView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

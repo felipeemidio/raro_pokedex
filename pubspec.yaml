@@ -9,32 +9,30 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  cupertino_icons: ^1.0.2
+  dio: ^4.0.6
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  flutter_screenutil: ^5.5.4
-  flutter_modular: ^5.0.3
-  dio: ^4.0.6
   flutter_bloc: ^8.1.1
+  flutter_modular: ^5.0.3
+  flutter_screenutil: ^5.5.4
 
 dev_dependencies:
-  mockito: ^5.3.2
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  mockito: ^5.3.2
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

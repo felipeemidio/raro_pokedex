@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:raro_pokedex/core/entites/pokemon.dart';
 import 'package:raro_pokedex/modules/cubit/pokemon_list_cubit.dart';
+import 'package:raro_pokedex/modules/cubit/pokemon_list_cubit_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     pageViewController = PageController();
     _pokemonsListCubit = Modular.get<PokemonsListCubit>();
     _pokemonsListCubit.getPokemons();
+
     super.initState();
   }
 
@@ -42,11 +44,19 @@ class _HomePageState extends State<HomePage> {
         controller: pageViewController,
         children: [
           const Center(child: Text('Favoritos')),
-          BlocBuilder<PokemonsListCubit, List<Pokemon>>(
+          BlocConsumer<PokemonsListCubit, PokemonsListCubitState>(
+            listener: (context, state) {
+              if (state.status == PokemonsListCubitStatus.error) {
+                final snackBar = SnackBar(
+                  content: Text(state.error!.message),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
             bloc: _pokemonsListCubit,
             builder: (context, state) {
               return ListView(
-                  children: state
+                  children: state.pokemons
                       .map((pokemon) => ListTile(
                             title: Text(
                               pokemon.name,

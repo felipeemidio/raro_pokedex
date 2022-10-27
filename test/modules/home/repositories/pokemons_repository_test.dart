@@ -19,9 +19,26 @@ class FakeClientHttp implements ClientHttp {
   }
 }
 
+class FakeClientHttp2 implements ClientHttp {
+  @override
+  Future<HttpResponse> get(
+      {required String url, Map<String, dynamic>? params}) async {
+    throw Exception();
+  }
+}
+
 void main() {
   test('Pokemons list is not Empty', () async {
     final ClientHttp clientHttp = FakeClientHttp();
+    final PokemonRepository pokemonRepository = PokemonRepository(clientHttp);
+
+    final pokemons = await pokemonRepository.getPokemons();
+
+    expect(pokemons.isEmpty, false);
+  });
+
+  test('Pokemons list fails', () async {
+    final ClientHttp clientHttp = FakeClientHttp2();
     final PokemonRepository pokemonRepository = PokemonRepository(clientHttp);
 
     final pokemons = await pokemonRepository.getPokemons();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:raro_pokedex/modules/home/widgets/pokemons_favorite_list_view.dart';
 import 'package:raro_pokedex/modules/home/widgets/pokemons_list_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pageViewController,
         children: const [
-          Center(child: Text('Favoritos')),
+          PokemonFavoriteListView(),
           PokemonListView(),
         ],
       ),

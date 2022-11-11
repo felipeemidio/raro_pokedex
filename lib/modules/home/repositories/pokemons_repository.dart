@@ -24,7 +24,6 @@ class PokemonRepository {
         hasNextPage: response.data['next'] != null,
         hasPreviousPage: response.data['previous'] != null,
       );
-
       return pagination;
     } catch (e) {
       throw PokemonListException(
@@ -38,7 +37,9 @@ class PokemonRepository {
           url: "https://pokeapi.co/api/v2/pokemon/$pokemonId");
       final types = response.data['types'] as List;
       final details = PokemonDetail(
-        image: response.data['sprites']['other']['dream_world']['front_default'] ?? "",
+        image: response.data['sprites']['other']['dream_world']
+                ['front_default'] ??
+            "",
         types: types.map((e) => e['type']['name'] as String).toList(),
       );
       return details;

@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:raro_pokedex/core/drivers/http/client_http.dart';
 
 import 'package:raro_pokedex/core/entites/http_response.dart';
-import 'package:raro_pokedex/core/http/client_http.dart';
 import 'package:raro_pokedex/modules/home/errors/home_errors.dart';
 import 'package:raro_pokedex/modules/home/repositories/pokemons_repository.dart';
 
@@ -11,9 +11,12 @@ class MockClientHttp extends Mock implements ClientHttp {}
 void main() {
   test('Pokemons list is not Empty', () async {
     final ClientHttp clientHttp = MockClientHttp();
-    when(() => clientHttp.get(url: any(named: "url")))
+    when(() => clientHttp.get(url: any(named: "url"), params: any(named: "params")))
         .thenAnswer((realInvocation) async => HttpResponse(
               data: {
+                "count": 1,
+                "next": null,
+                "previous": null,
                 "results": [
                   {
                     "name": "Pikachu",
@@ -27,8 +30,7 @@ void main() {
     final PokemonRepository pokemonRepository = PokemonRepository(clientHttp);
 
     final pokemons = await pokemonRepository.getPokemons();
-
-    expect(pokemons.isEmpty, false);
+    expect(pokemons.content.isEmpty, false);
   });
 
   test('Pokemons list fails', () async {

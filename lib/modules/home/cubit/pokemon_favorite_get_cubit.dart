@@ -13,7 +13,6 @@ class PokemonFavoriteGetCubit extends Cubit<PokemonFavoriteGetCubitState> {
     try {
       emit(state.copyWith(status: PokemonFavoriteGetCubitStatus.loading));
       final currentList = await _pokemonsFavoriteRepository.get();
-      print("CurrentList: $currentList ");
       emit(state.copyWith(
           status: PokemonFavoriteGetCubitStatus.loaded,
           favoritePokemons: currentList));

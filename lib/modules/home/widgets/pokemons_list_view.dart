@@ -28,6 +28,7 @@ class _PokemonListViewState extends State<PokemonListView> {
     _pokemonFavoriteToggleCubit = Modular.get<PokemonFavoriteToggleCubit>();
     _pokemonFavoriteGetCubit = Modular.get<PokemonFavoriteGetCubit>();
     _pokemonsListCubit.getPokemons();
+    _pokemonFavoriteGetCubit.getFavoritePokemons();
     super.initState();
   }
 
@@ -40,7 +41,6 @@ class _PokemonListViewState extends State<PokemonListView> {
       leading: Text(pokemon.id),
       trailing: IconButton(
         onPressed: () {
-          print('favoritado');
           _pokemonFavoriteToggleCubit.toggleFavoritePokemon(pokemon);
         },
         icon: pokemon.favorite
@@ -68,7 +68,6 @@ class _PokemonListViewState extends State<PokemonListView> {
             PokemonFavoriteToggleCubitState>(
           bloc: _pokemonFavoriteToggleCubit,
           listener: (context, state) {
-            print(state.status);
             if (state.status == PokemonFavoriteToggleCubitStatus.error) {
               final snackBar = SnackBar(
                 backgroundColor: Colors.red,

@@ -4,7 +4,6 @@ import 'package:raro_pokedex/core/drivers/local_storage/shared_pref_local_storag
 import 'package:raro_pokedex/core/entites/http_response.dart';
 import 'package:raro_pokedex/core/drivers/http/client_http.dart';
 import 'package:raro_pokedex/core/drivers/http/dio_client_http.dart';
-import 'package:raro_pokedex/modules/home/pages/details/pokemon_details_module.dart';
 import 'package:raro_pokedex/modules/home/pages/home/home_module.dart';
 import 'package:raro_pokedex/modules/login/login_module.dart';
 import 'package:raro_pokedex/modules/app/splash_page.dart';

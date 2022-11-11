@@ -11,6 +11,7 @@ enum PokemonsListCubitStatus {
   loaded;
 }
 
+// ignore: must_be_immutable
 class PokemonsListCubitState extends Equatable {
   Pagination<Pokemon>? pokemonsPagination;
   PokemonListException? error;

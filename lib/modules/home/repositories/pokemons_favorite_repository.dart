@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:raro_pokedex/core/drivers/local_storage/local_storage.dart';
 import 'package:raro_pokedex/core/entites/pokemon.dart';

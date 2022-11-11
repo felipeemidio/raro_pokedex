@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:raro_pokedex/core/drivers/http/client_http.dart';
 import 'package:raro_pokedex/core/drivers/local_storage/local_storage.dart';
+import 'package:raro_pokedex/modules/home/cubit/pokemon_favorite_clear_cubit.dart';
 import 'package:raro_pokedex/modules/home/cubit/pokemon_favorite_get_cubit.dart';
 import 'package:raro_pokedex/modules/home/cubit/pokemon_favorite_toggle_cubit.dart';
 import 'package:raro_pokedex/modules/home/cubit/pokemon_list_cubit.dart';
@@ -15,9 +16,9 @@ class HomeModule extends Module {
         Bind(((i) => PokemonRepository(i<ClientHttp>()))),
         Bind(((i) => PokemonsFavoriteRepository(i<LocalStorage>()))),
         Bind(((i) => PokemonsListCubit(i<PokemonRepository>()))),
-        Bind(((i) =>
-            PokemonFavoriteToggleCubit(i<PokemonsFavoriteRepository>()))),
+        Bind(((i) => PokemonFavoriteToggleCubit(i<PokemonsFavoriteRepository>()))),
         Bind(((i) => PokemonFavoriteGetCubit(i<PokemonsFavoriteRepository>()))),
+        Bind(((i) => PokemonFavoriteClearCubit(i<PokemonsFavoriteRepository>()))),
       ];
 
   @override

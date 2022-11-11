@@ -59,7 +59,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
               ],
             );
           }
-          return Center(child: const CircularProgressIndicator());
+          return const Center(child:  CircularProgressIndicator());
         },
       ),
     );
